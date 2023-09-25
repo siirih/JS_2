@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <title>Puhelinluettelo</title>
+  </head>
+  <body>
+    <h1>Puhelinluettelo</h1>
+    <div>
+      <h3>Hae</h3>
+      <form>
+        <label for="nimi">Anna nimi:</label><br />
+        <input type="text" id="nimi" name="nimi" /><br />
+      </form>
+      <button type="button" onclick="naytaNro()">Hae</button>
+      <div id="palautaNro"><br /></div>
+      <br />
+    </div>
+    <div>
+      <h3>Lisää uusi</h3>
+      <form>
+        <label for="uusiNimi">Anna nimi:</label><br />
+        <input type="text" id="uusiNimi" name="uusiNimi" /><br />
+        <label for="uusiNro">Anna puhelinnumero:</label><br />
+        <input type="text" id="uusiNro" name="uusiNro" /><br />
+      </form>
+      <button type="button" onclick="lisaaUusi()">Lisää</button>
+      <div id="lisatty"></div>
+    </div>
+
+    <script>
+      let luettelo = [
+        { nimi: "Chris", numero: "0448136502" },
+        { nimi: "Janet", numero: "0504265482" },
+        { nimi: "Josh", numero: "0449275011" },
+      ];
+      function haeNumero(taulukko, hNimi) {
+        if (taulukko.find((o) => o.nimi === hNimi)) {
+          let getObjekti = taulukko.find((o) => o.nimi === hNimi);
+          let getNumero = getObjekti.numero;
+          return getNumero;
+        } else {
+          return "Ei löytynyt";
+        }
+      }
+      function naytaNro() {
+        let getNimi = document.getElementById("nimi").value;
+        let tulos = haeNumero(luettelo, getNimi);
+        document.getElementById("palautaNro").innerHTML = tulos;
+      }
+      function lisaaUusi() {
+        let getNimi = document.getElementById("uusiNimi").value;
+        let getNro = document.getElementById("uusiNro").value;
+        let uusiHenkilo = { nimi: getNimi, numero: getNro };
+        if (luettelo.find((o) => o.nimi === getNimi)) {
+          document.getElementById("lisatty").innerHTML =
+            "Henkilö on jo lisätty luetteloon";
+        } else if (luettelo.find((o) => o.numero === getNro)) {
+          document.getElementById("lisatty").innerHTML =
+            "Numero on jo lisätty luetteloon";
+        } else {
+          luettelo.push(uusiHenkilo);
+          document.getElementById("lisatty").innerHTML = "Lisätty!";
+        }
+      }
+    </script>
+  </body>
+</html>
